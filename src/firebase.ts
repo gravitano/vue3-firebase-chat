@@ -92,7 +92,7 @@ export const db = getFirestore();
 const q = query(collection(db, 'messages'), orderBy('createdAt', 'asc'));
 
 export function useChat() {
-  const messages = ref<DocumentData>([]);
+  const messages = ref<DocumentData[]>([]);
 
   const unsubscribe = onSnapshot(q, (snapshot) => {
     const chats: DocumentData[] = [];
