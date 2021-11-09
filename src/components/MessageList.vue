@@ -37,7 +37,7 @@ watch(
       ) in messages"
       :key="index"
       class="flex w-auto gap-4 px-4 py-3 rounded-md"
-      :class="[uid === user?.uid ? 'bg-gray-100' : 'bg-indigo-500']"
+      :class="[uid === user?.uid ? 'bg-indigo-500' : 'bg-gray-100']"
     >
       <img
         :src="photoURL"
@@ -48,7 +48,7 @@ watch(
       <div class="space-y-0.5">
         <h3
           class="font-semibold"
-          :class="[uid === user?.uid ? 'text-gray-900' : 'text-white']"
+          :class="[uid === user?.uid ? 'text-white' : 'text-gray-900']"
         >
           {{ displayName }}
 
@@ -56,12 +56,12 @@ watch(
 
           <span
             class="text-xs font-normal"
-            :class="[uid === user?.uid ? 'text-gray-600' : 'text-gray-50']"
+            :class="[uid === user?.uid ? 'text-gray-50' : 'text-gray-600']"
           >
             {{ new Date(createdAt?.seconds).toLocaleTimeString() }}
           </span>
         </h3>
-        <p :class="[uid === user?.uid ? 'text-gray-900' : 'text-white']">
+        <p :class="[uid === user?.uid ? 'text-white' : 'text-gray-900']">
           {{ text }}
         </p>
       </div>
