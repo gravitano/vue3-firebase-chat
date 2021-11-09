@@ -1,12 +1,40 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { collection, getDocs } from "firebase/firestore";
+import { onMounted, ref } from "vue";
+import { db, useAuth, useChat } from "./firebase";
+
+const { signIn, isLogin, user, logout } = useAuth();
+const { messages, sendMessage } = useChat();
+
+const chat = ref("");
+const sendChat = async () => {
+  await sendMessage(chat.value);
+  chat.value = "";
+};
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div v-if="isLogin">
+    {{ user?.displayName }}
+    <button @click="logout">Sign out</button>
+  </div>
+  <button v-else @click="signIn">Sign in</button>
+
+  <!-- <pre> {{ messages }} </pre> -->
+  <div
+    v-for="({ text, user: { photoURL, displayName } }, index) in messages"
+    :key="index"
+  >
+    {{ displayName }}
+    <img :src="photoURL" :alt="photoURL" />
+    {{ text }}
+  </div>
+
+  <form @submit.prevent="sendChat">
+    <textarea v-model="chat" placeholder="Type something"></textarea>
+
+    <button type="submit">Send</button>
+  </form>
 </template>
 
 <style>
